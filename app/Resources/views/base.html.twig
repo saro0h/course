@@ -8,13 +8,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}Course - {% endblock %}</title>
 
+    {% block stylesheets %}
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('/css/blog-home.css')}}" rel="stylesheet">
+    {% endblock %}
 
 </head>
 
@@ -95,9 +97,11 @@
     <!-- /.container -->
 </footer>
 
+{% block javascripts %}
 <!-- Bootstrap core JavaScript -->
 <script src="{{ asset('/vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+{% endblock %}
 
 </body>
 
