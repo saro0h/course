@@ -57,6 +57,30 @@ class CourseController extends Controller
         return $this->render('course/create.html.twig', ['courseForm' => $courseForm->createView()]);
     }
 
+    /**
+     * @Route("/delete", name="course_delete", methods={"POST"})
+     */
+    public function deleteAction(Request $request)
+    {
+        $doctrine = $this->getDoctrine();
+        $courseId = $request->request->get('course_id');
+
+        if (!$course = $doctrine->getRepository('AppBundle:Course')->findOneBy(['id' => $courseId])) {
+            $this->addFlash('danger', 'This course does not exist');
+
+            return $this->redirectToRoute('course_list');
+        }
+
+        $em = $doctrine->getManager();
+        $em->remove($course);
+        $em->flush();
+
+        $this->addFlash('success', 'This course has been successfully deleted.');
+
+        return $this->redirectToRoute('course_list');
+    }
+
+
     public function searchAction()
     {
         return $this->render('course/search.html.twig');
