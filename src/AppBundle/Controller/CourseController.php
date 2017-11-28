@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Course;
+use AppBundle\Type\CourseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -23,7 +25,10 @@ class CourseController extends Controller
      */
     public function createAction()
     {
-        return $this->render('course/create.html.twig');
+        $course = new Course();
+        $courseForm = $this->createForm(CourseType::class, $course);
+
+        return $this->render('course/create.html.twig', ['courseForm' => $courseForm->createView()]);
     }
 
     public function searchAction()
