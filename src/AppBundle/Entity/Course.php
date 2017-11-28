@@ -32,13 +32,17 @@ class Course
 
     /**
      * @ORM\Column
+     */
+    private $thumbnail;
+
+    /**
      * @Assert\Image(
      *     maxWidth = 750,
      *     maxHeight = 300
      * )
-     * @Assert\NotBlank(message="Please provide an image.")
+     * @Assert\NotBlank(message="Please provide an image.", groups={"create"})
      */
-    private $thumbnail;
+    private $thumbnailFile;
 
     /**
      * @ORM\Column(type="datetime")
@@ -89,6 +93,16 @@ class Course
     public function setThumbnail($thumbnail)
     {
         $this->thumbnail = $thumbnail;
+    }
+
+    public function getThumbnailFile()
+    {
+        return $this->thumbnailFile;
+    }
+
+    public function setThumbnailFile($thumbnailFile)
+    {
+        $this->thumbnailFile = $thumbnailFile;
     }
 
     public function getPostedAt()

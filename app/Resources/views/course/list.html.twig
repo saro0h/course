@@ -17,8 +17,10 @@
                 <input type="hidden" name="course_id" value="{{ course.id }}" />
                 <input type="hidden" name="csrf_token" value="{{ csrf_token('delete_course') }}">
 
-                <button type="submit" class="btn btn-primary">Delete</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
             </form>
+
+            <a href="{{ path('course_modify', {"id": course.id}) }}" class="btn btn-primary pull-right">Modify</a>
 
         </div>
         <div class="card-footer text-muted">

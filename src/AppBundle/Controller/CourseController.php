@@ -30,13 +30,13 @@ class CourseController extends Controller
     public function createAction(Request $request)
     {
         $course = new Course();
-        $courseForm = $this->createForm(CourseType::class, $course);
+        $courseForm = $this->createForm(CourseType::class, $course, ['validation_groups' => ['create']]);
 
         $courseForm->handleRequest($request);
 
         if ($courseForm->isValid()){
 
-            $file = $course->getThumbnail();
+            $file = $course->getThumbnailFile();
 
             $filename = time() . "-" . $file->getClientOriginalName();
 
@@ -55,7 +55,7 @@ class CourseController extends Controller
             return $this->redirectToRoute('course_list');
         }
 
-        return $this->render('course/create.html.twig', ['courseForm' => $courseForm->createView()]);
+        return $this->render('course/create_update.html.twig', ['courseForm' => $courseForm->createView()]);
     }
 
     /**
@@ -85,6 +85,46 @@ class CourseController extends Controller
         }
 
         return $this->redirectToRoute('course_list');
+    }
+
+    /**
+     * @Route(
+     *     "/modify/{id}",
+     *     name="course_modify",
+     *     requirements={"id"="\d+"}
+     * )
+     */
+    public function modifyAction(Course $course, Request $request)
+    {
+        $courseForm = $this->createForm(CourseType::class, $course);
+
+        $courseForm->handleRequest($request);
+
+        if ($courseForm->isValid()) {
+
+            if ($file = $course->getThumbnailFile()) {
+                $filename = time().'-'.$file->getClientOriginalName();
+
+                $folder = $this->getParameter('kernel.root_dir');
+                $path = $folder . '/../web/uploads';
+                $file->move($path, $filename);
+                $course->setThumbnail('/uploads/' . $filename);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($course);
+            $em->flush();
+
+            $this->addFlash('success', 'Congratulation, the course has been added.');
+
+            return $this->redirectToRoute('course_list');
+        }
+
+        return $this->render('course/create_update.html.twig', [
+            'courseForm' => $courseForm->createView(),
+            'course' => $course
+        ]);
     }
 
 
