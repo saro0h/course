@@ -42,6 +42,11 @@ class Course
      */
     private $author;
 
+    public function __construct()
+    {
+        $this->postedAt = new \Datetime();
+    }
+
     public function getId()
     {
         return $this->id;
