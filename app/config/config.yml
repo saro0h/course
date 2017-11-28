@@ -37,6 +37,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        google_analtics_number: '%GA_number%'
 
 # Doctrine Configuration
 doctrine:
