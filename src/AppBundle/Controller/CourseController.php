@@ -7,6 +7,7 @@ use AppBundle\Type\CourseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Csrf\CsrfToken;
 
 /**
  * @Route("/course")
@@ -66,16 +67,22 @@ class CourseController extends Controller
         $courseId = $request->request->get('course_id');
 
         if (!$course = $doctrine->getRepository('AppBundle:Course')->findOneBy(['id' => $courseId])) {
-            $this->addFlash('danger', 'This course does not exist');
+            $this->addFlash('danger', 'This course does not exist.');
 
             return $this->redirectToRoute('course_list');
         }
 
-        $em = $doctrine->getManager();
-        $em->remove($course);
-        $em->flush();
+        $csrfToken = new CsrfToken('delete_course', $request->request->get('csrf_token'));
 
-        $this->addFlash('success', 'This course has been successfully deleted.');
+        if ($this->get('security.csrf.token_manager')->isTokenValid($csrfToken)) {
+            $em = $doctrine->getManager();
+            $em->remove($course);
+            $em->flush();
+
+            $this->addFlash('success', 'This course has been successfully deleted.');
+        } else {
+            $this->addFlash('danger', 'Csrf token not valid.');
+        }
 
         return $this->redirectToRoute('course_list');
     }
