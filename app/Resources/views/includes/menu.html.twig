@@ -12,7 +12,7 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {% if app.request.attributes.get('_route') == 'course_create' %}active{% endif %}">
                     <a class="nav-link" href="{{ path('course_create') }}">Create course</a>
                 </li>
             </ul>
