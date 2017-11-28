@@ -3,6 +3,8 @@
 namespace AppBundle\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class CourseType extends AbstractType
@@ -12,8 +14,9 @@ class CourseType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('thumbnail')
+            ->add('thumbnail', FileType::class)
             ->add('author')
+            ->add('Save', SubmitType::class)
         ;
     }
 }

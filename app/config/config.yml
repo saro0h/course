@@ -39,6 +39,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         google_analtics_number: '%GA_number%'
+    form_themes: ['bootstrap_3_layout.html.twig']
 
 # Doctrine Configuration
 doctrine:
