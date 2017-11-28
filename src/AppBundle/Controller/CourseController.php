@@ -32,7 +32,12 @@ class CourseController extends Controller
         $courseForm->handleRequest($request);
 
         if ($courseForm->isValid() && $courseForm->isSubmitted()){
-            // Save the course
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($course);
+            $em->flush();
+
+            $this->addFlash('success', 'Congratulation, the course has been added.');
 
             return $this->redirectToRoute('course_create');
         }

@@ -32,6 +32,14 @@
     <div class="row">
         <!-- Blog Entries Column -->
         <div class="col-md-8">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endfor %}
+
             {% block content %}{% endblock %}
         </div>
 
