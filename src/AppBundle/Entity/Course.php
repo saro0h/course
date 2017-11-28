@@ -32,7 +32,10 @@ class Course
 
     /**
      * @ORM\Column
-     * @Assert\Image(maxWidth="250", maxHeight="250")
+     * @Assert\Image(
+     *     maxWidth = 750,
+     *     maxHeight = 300
+     * )
      * @Assert\NotBlank(message="Please provide an image.")
      */
     private $thumbnail;

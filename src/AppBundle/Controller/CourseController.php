@@ -18,7 +18,9 @@ class CourseController extends Controller
      */
     public function listAction()
     {
-        return $this->render('course/list.html.twig');
+        $courses = $this->getDoctrine()->getRepository('AppBundle:Course')->findAll();
+
+        return $this->render('course/list.html.twig', ['courses' => $courses]);
     }
 
     /**
@@ -49,7 +51,7 @@ class CourseController extends Controller
 
             $this->addFlash('success', 'Congratulation, the course has been added.');
 
-            return $this->redirectToRoute('course_create');
+            return $this->redirectToRoute('course_list');
         }
 
         return $this->render('course/create.html.twig', ['courseForm' => $courseForm->createView()]);
