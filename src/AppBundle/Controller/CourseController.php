@@ -32,6 +32,16 @@ class CourseController extends Controller
         $courseForm->handleRequest($request);
 
         if ($courseForm->isValid() && $courseForm->isSubmitted()){
+
+            $file = $course->getThumbnail();
+
+            $filename = time() . "-" . $file->getClientOriginalName();
+
+            $folder = $this->getParameter('kernel.root_dir');
+            $path = $folder . '/../web/uploads';
+            $file->move($path, $filename);
+            $course->setThumbnail('/uploads/' . $filename);
+
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($course);

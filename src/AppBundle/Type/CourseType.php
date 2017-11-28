@@ -14,7 +14,7 @@ class CourseType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('thumbnail', FileType::class)
+            ->add('thumbnail', FileType::class, ['label' => 'Picture'])
             ->add('author')
             ->add('Save', SubmitType::class)
         ;

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -19,16 +20,20 @@ class Course
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please provide a title.")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Please provide a description.")
      */
     private $description;
 
     /**
      * @ORM\Column
+     * @Assert\Image(maxWidth="250", maxHeight="250")
+     * @Assert\NotBlank(message="Please provide an image.")
      */
     private $thumbnail;
 
@@ -39,6 +44,7 @@ class Course
 
     /**
      * @ORM\Column
+     * @Assert\NotBlank(message="Please provide an author.")
      */
     private $author;
 

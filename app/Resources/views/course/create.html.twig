@@ -6,6 +6,11 @@
     {#{{ form(courseForm) }}#}
 
     {{ form_start(courseForm, {'attr': {novalidate: 'novalidate'} }) }}
-        {{ form_row(courseForm) }}
+        {#{{ form_row(courseForm) }}#}
+
+        {#{{ form_row(courseForm.title) }}#}
+
+
     {{ form_end(courseForm) }}
+
 {% endblock %}
