@@ -31,7 +31,7 @@ class CourseController extends Controller
 
         $courseForm->handleRequest($request);
 
-        if ($courseForm->isValid() && $courseForm->isSubmitted()){
+        if ($courseForm->isValid()){
 
             $file = $course->getThumbnail();
 
