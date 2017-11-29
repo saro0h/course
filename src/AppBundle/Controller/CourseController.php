@@ -99,10 +99,7 @@ class CourseController extends Controller
                 $course->setThumbnail($pathFile);
             }
 
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($course);
-            $em->flush();
+            $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Congratulation, the course has been added.');
 

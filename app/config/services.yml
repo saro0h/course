@@ -34,3 +34,4 @@ services:
         arguments:
             $absolutePathWebFolder: '%absolute_path_upload_folder%'
             $pathToUploadFolder: '%path_upload_folder%'
+            $logger: '@logger'
