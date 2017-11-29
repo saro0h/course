@@ -15,6 +15,9 @@
                 <li class="nav-item {% if app.request.attributes.get('_route') == 'course_create' %}active{% endif %}">
                     <a class="nav-link" href="{{ path('course_create') }}">Create course</a>
                 </li>
+                <li class="nav-item {% if app.request.attributes.get('_route') == 'user_create' %}active{% endif %}">
+                    <a class="nav-link" href="{{ path('user_create') }}">Create user</a>
+                </li>
             </ul>
         </div>
     </div>
