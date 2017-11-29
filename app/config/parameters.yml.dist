@@ -18,3 +18,6 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
     GA_number: XXXXXX
+
+    absolute_path_upload_folder: '%kernel.root_dir%/../web'
+    path_upload_folder: '/uploads'

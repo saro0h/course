@@ -31,6 +31,6 @@ class SecurityController extends Controller
      */
     public function logoutAction()
     {
-        // This code is never executed
+        // This code is never executed 😱😱😱😱😱😱
     }
 }

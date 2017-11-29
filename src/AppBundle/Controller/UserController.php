@@ -7,7 +7,7 @@ use AppBundle\Type\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 /**
  * @Route("/user")
@@ -17,7 +17,7 @@ class UserController extends Controller
     /**
      * @Route("/create", name="user_create")
      */
-    public function createAction(Request $request, EncoderFactory $encoderFactory)
+    public function createAction(Request $request, EncoderFactoryInterface $encoderFactory)
     {
         $user = new User();
         $userForm = $this->createForm(UserType::class, $user);
@@ -39,7 +39,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            // Add flash message 🎉
+            // Add flash message
             $this->addFlash('success', 'The user have been successfully added.');
 
             // Redirect
