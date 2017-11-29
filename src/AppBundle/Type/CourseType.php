@@ -15,7 +15,6 @@ class CourseType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('thumbnailFile', FileType::class, ['label' => 'Thumbnail'])
-            ->add('author')
             ->add('Save', SubmitType::class)
         ;
     }

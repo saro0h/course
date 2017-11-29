@@ -39,6 +39,11 @@ class User implements UserInterface
      */
     private $fullname;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Course", mappedBy="author")
+     */
+    private $courses;
+
     public function getId()
     {
         return $this->id;

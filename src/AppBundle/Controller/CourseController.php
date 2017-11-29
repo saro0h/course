@@ -30,7 +30,7 @@ class CourseController extends Controller
      */
     public function createAction(Request $request, Uploader $uploader)
     {
-        $course = new Course();
+        $course = new Course($this->getUser());
         $courseForm = $this->createForm(CourseType::class, $course, ['validation_groups' => ['create']]);
 
         $courseForm->handleRequest($request);

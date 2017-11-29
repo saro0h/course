@@ -50,14 +50,16 @@ class Course
     private $postedAt;
 
     /**
-     * @ORM\Column
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="courses")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @Assert\NotBlank(message="Please provide an author.")
      */
     private $author;
 
-    public function __construct()
+    public function __construct(User $user)
     {
         $this->postedAt = new \Datetime();
+        $this->author = $user;
     }
 
     public function getId()
