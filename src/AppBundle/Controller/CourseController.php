@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Course;
+use AppBundle\File\Uploader;
 use AppBundle\Type\CourseType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -27,23 +28,16 @@ class CourseController extends Controller
     /**
      * @Route("/create", name="course_create")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, Uploader $uploader)
     {
         $course = new Course();
         $courseForm = $this->createForm(CourseType::class, $course, ['validation_groups' => ['create']]);
 
         $courseForm->handleRequest($request);
 
-        if ($courseForm->isValid()){
-
-            $file = $course->getThumbnailFile();
-
-            $filename = time() . "-" . $file->getClientOriginalName();
-
-            $folder = $this->getParameter('kernel.root_dir');
-            $path = $folder . '/../web/uploads';
-            $file->move($path, $filename);
-            $course->setThumbnail('/uploads/' . $filename);
+        if ($courseForm->isValid()) {
+            $pathFile = $uploader->upload($course->getThumbnailFile());
+            $course->setThumbnail($pathFile);
 
             $em = $this->getDoctrine()->getManager();
 
@@ -101,14 +95,13 @@ class CourseController extends Controller
         $courseForm->handleRequest($request);
 
         if ($courseForm->isValid()) {
-
             if ($file = $course->getThumbnailFile()) {
-                $filename = time().'-'.$file->getClientOriginalName();
-
-                $folder = $this->getParameter('kernel.root_dir');
-                $path = $folder . '/../web/uploads';
-                $file->move($path, $filename);
-                $course->setThumbnail('/uploads/' . $filename);
+                $uploader = new Uploader(
+                    $this->getParameter('absolute_path_upload_folder'),
+                    $this->getParameter('path_upload_folder')
+                );
+                $pathFile = $uploader->upload($course->getThumbnailFile());
+                $course->setThumbnail($pathFile);
             }
 
             $em = $this->getDoctrine()->getManager();
