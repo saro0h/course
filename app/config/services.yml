@@ -35,3 +35,6 @@ services:
             $absolutePathWebFolder: '%absolute_path_upload_folder%'
             $pathToUploadFolder: '%path_upload_folder%'
             $logger: '@logger'
+
+    AppBundle\Voter\CourseVoter:
+        tags: ['security.voter']

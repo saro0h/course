@@ -66,6 +66,8 @@ class CourseController extends Controller
             return $this->redirectToRoute('course_list');
         }
 
+        $this->denyAccessUnlessGranted('delete', $course);
+
         $csrfToken = new CsrfToken('delete_course', $request->request->get('csrf_token'));
 
         if ($this->get('security.csrf.token_manager')->isTokenValid($csrfToken)) {
