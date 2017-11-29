@@ -4,6 +4,10 @@ security:
         AppBundle\Entity\User: bcrypt
 
     providers:
+        in_database:
+            entity:
+                class: AppBundle:User
+                property: username
         in_memory:
             memory:
                 users:
@@ -22,12 +26,13 @@ security:
 
         secured_area:
             pattern: ^/
-            provider: in_memory
+            provider: in_database
             form_login:
                 login_path: /login
                 check_path: /login_check
                 default_target_path:  /course/list   # path to redirect the user when authenticated 🎉
                 always_use_default_target_path: true
+            logout: ~
 
         main:
             anonymous: ~
