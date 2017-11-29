@@ -88,18 +88,13 @@ class CourseController extends Controller
      *     requirements={"id"="\d+"}
      * )
      */
-    public function modifyAction(Course $course, Request $request)
+    public function modifyAction(Course $course, Request $request, Uploader $uploader)
     {
         $courseForm = $this->createForm(CourseType::class, $course);
-
         $courseForm->handleRequest($request);
 
         if ($courseForm->isValid()) {
             if ($file = $course->getThumbnailFile()) {
-                $uploader = new Uploader(
-                    $this->getParameter('absolute_path_upload_folder'),
-                    $this->getParameter('path_upload_folder')
-                );
                 $pathFile = $uploader->upload($course->getThumbnailFile());
                 $course->setThumbnail($pathFile);
             }
